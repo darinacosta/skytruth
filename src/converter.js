@@ -1,8 +1,3 @@
-const entries = [];
-let csv = null;
-const boundingBox = "29.3841,-91.4996,30.9277,-89.577";
-const fields = ["lat", "lon", "published", "summary", "title"];
-
 function xmlToJson(xml) {
   var obj = {};
 
@@ -64,6 +59,7 @@ function parseObjEntry(obj) {
 }
 
 function getSkyTruthData(location) {
+  console.log("!!!!", `http://alerts.skytruth.org/rss?l=${boundingBox}#rss`);
   return fetch(`http://alerts.skytruth.org/rss?l=${boundingBox}#rss`)
     .then(response => response.text())
     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))

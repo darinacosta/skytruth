@@ -1,23 +1,37 @@
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/json2csv"></script>
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <script src="lib/json2csv.js"></script>
+  <script src="lib/jquery.js"></script>
+  <script src="lib/ol/ol.js"></script>
+  <link rel="stylesheet" type="text/css" href="lib/ol/ol.css">
   <style>
+  h1 {
+    color: #19614a;
+  }
   body {
     background-color: black;
     color: white;
     font-family: "Courier New", Courier, monospace;
   }
   a, a:checked {
-    color: green;
+    color: #19614a;
+  }
+  button {
+    font-size: 20;
+        width: 100%;
+        background-color: #19614a;
+        height: 50px;
+        font-weight: 900;
+        color: #b5b5b5;
+        border: none;
   }
   #main {
     margin: 0 auto;
     width: 100%;
     max-width: 700px;
     padding: 30px;
+  }
+  #map {
+    height: 400px;
   }
   </style>
 </head>
@@ -26,10 +40,11 @@
     <h1>Sky Truth XML > CSV</h1>
     <p>
       Data is collected from
-      <a href="http://alerts.skytruth.org/" target="_blank">Sky Truth</a> using the following
-      coordinate bounding box:
-      <pre>[29.3841, -91.4996, 30.9277, -89.577]</pre>
+      <a href="http://alerts.skytruth.org/" target="_blank">Sky Truth</a>. Set the bounding box by panning and zooming the map below and click the `DOWNLOAD` button to retrieve CSV data. Current bounds are:
+      <pre id="coords"><i>loading...</i></pre>
     </p>
+    <div id="map" class="map"></div>
+
     <a id='a' download='Download.csv' type='text/csv'>
       <button>DOWNLOAD</button>
     </a>
@@ -37,5 +52,12 @@
     <hr>
     <p><b>Target browsers:</b> <i>latest version of Firefox or Chrome</i></p>
   </div>
-  <script src="./index.js"></script>
+  <script>
+  const entries = [];
+let csv = null;
+let boundingBox = null;
+const fields = ["lat", "lon", "published", "summary", "title"];
+</script>
+  <script src="src/map.js"></script>
+  <script src="src/converter.js"></script>
 </body>
