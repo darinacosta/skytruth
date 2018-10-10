@@ -39,7 +39,6 @@ function addPoints(entries) {
       summary: e.summary
     });
 
-    feature.style = style;
     features.push(feature);
   }
   const pinLayer = new ol.layer.Vector({
