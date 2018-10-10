@@ -42,11 +42,19 @@
   #map {
     height: 400px;
   }
-  #info {
+  #info, #browserWarning, hr {
     color: grey;
   }
   .ol-control button {
     background-color: rgb(36, 132, 101)
+  }
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid rgb(36, 132, 101);
+    margin: 1em 0;
+    padding: 0;
   }
   </style>
 </head>
@@ -54,11 +62,11 @@
   <div id="main">
     <h1>Skytruth XML to CSV Converter</h1>
     <div id="browserWarning"><b>Target browsers:</b> <i>latest version of Firefox or Chrome</i></div>
-    <hr>
     <p>
       Data is collected from
-      <a href="http://alerts.skytruth.org/" target="_blank">Skytruth</a>. Set the bounding box by panning and zooming the map below and click the `DOWNLOAD CSV` button to retrieve CSV data:
-      <br><br>
+      <a href="http://alerts.skytruth.org/" target="_blank">Skytruth</a>. Set the bounding box by panning and zooming the map below and click `DOWNLOAD CSV` to retrieve CSV data.
+      <hr>
+
       <pre><b>MAXIMUM FEATURES: </b><input type="number" id="maxFeatures" min="1" value="100"></pre>
       <pre><b>FEATURE COUNT: </b><span id="count"><i>loading...</i></span></pre>
       <pre><b>BOUNDS: </b><span id="coords"><i>loading...</i></span></pre>
