@@ -46,7 +46,6 @@ dataManager.jsonToCsv = arr => {
 };
 
 dataManager.parseObjEntry = obj => {
-  console.log("!!!OBJ", obj);
   if (!obj) {
     $("#count").text(0);
     return;
