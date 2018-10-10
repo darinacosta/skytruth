@@ -1,0 +1,38 @@
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/json2csv"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <style>
+  body {
+    background-color: black;
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+  }
+  a, a:checked {
+    color: green;
+  }
+  #main {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 700px;
+    padding: 30px;
+  }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <h1>Sky Truth XML > CSV</h1>
+    <p>
+      Data is collected from
+      <a href="http://alerts.skytruth.org/" target="_blank">Sky Truth</a> using the following
+      coordinate bounding box:
+      <pre>[29.3841, -91.4996, 30.9277, -89.577]</pre>
+    </p>
+    <a id='a' download='Download.csv' type='text/csv'>
+      <button>DOWNLOAD</button>
+    </a>
+  </div>
+  <script src="./index.js"></script>
+</body>
