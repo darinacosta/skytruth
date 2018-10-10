@@ -62,11 +62,12 @@ function parseObjEntry(obj) {
   var data = new Blob([csv]);
   var a = document.getElementById("a");
   a.href = URL.createObjectURL(data);
+  addPoints(entries);
 }
 
-function getSkyTruthData(location) {
+function getSkyTruthData(bounds) {
   entries = [];
-  return fetch(`http://alerts.skytruth.org/rss?l=${boundingBox}#rss`)
+  return fetch(`http://alerts.skytruth.org/rss?l=${bounds}#rss`)
     .then(response => response.text())
     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
     .then(data => {

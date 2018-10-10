@@ -13,24 +13,37 @@ var map = new ol.Map({
   })
 });
 
-function getMapCoords() {
-  const coords = map.getView().calculateExtent(map.getSize());
-  const topLeft = ol.proj.transform(
-    [coords[0], coords[1]],
-    "EPSG:3857",
-    "EPSG:4326"
-  );
-  const bottomRight = ol.proj.transform(
-    [coords[2], coords[3]],
-    "EPSG:3857",
-    "EPSG:4326"
-  );
-  const newCoords = [topLeft[1], topLeft[0], bottomRight[1], bottomRight[0]];
-  addPoints(entries);
-  return newCoords;
-}
+const pinLayer = new ol.layer.Vector({
+  source: new ol.source.Vector()
+});
+map.addLayer(pinLayer);
 
-function addPoints(entries) {
+const getMapCoords = () =>
+  new Promise(res => {
+    const coords = map.getView().calculateExtent(map.getSize());
+
+    const topLeft = ol.proj.transform(
+      [coords[0], coords[1]],
+      "EPSG:3857",
+      "EPSG:4326"
+    );
+    const bottomRight = ol.proj.transform(
+      [coords[2], coords[3]],
+      "EPSG:3857",
+      "EPSG:4326"
+    );
+    const newCoords = [
+      topLeft[1],
+      topLeft[0],
+      bottomRight[1],
+      bottomRight[0]
+    ].map(coord => {
+      return coord.toFixed(2);
+    });
+    res(newCoords.toString());
+  });
+
+addPoints = function(entries) {
   let features = [];
   for (let e of entries) {
     const feature = new ol.Feature({
@@ -41,13 +54,8 @@ function addPoints(entries) {
 
     features.push(feature);
   }
-  const pinLayer = new ol.layer.Vector({
-    source: new ol.source.Vector({
-      features: features
-    })
-  });
-  map.addLayer(pinLayer);
-}
+  pinLayer.getSource().addFeatures(features);
+};
 
 function displayFeatureInfo(pixel) {
   var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
@@ -72,12 +80,18 @@ map.on("pointermove", function(evt) {
 });
 
 function init() {
-  boundingBox = getMapCoords().toString();
-  getSkyTruthData();
-  $("#coords").html(
-    `<a href="http://alerts.skytruth.org/rss?l=${boundingBox}#rss" target="_blank">${boundingBox}</a>`
-  );
+  getMapCoords().then(bounds => {
+    getSkyTruthData(bounds);
+    console.log("!!!ENTRIES", entries);
+    $("#coords").html(
+      `<a href="http://alerts.skytruth.org/rss?l=${bounds}#rss" target="_blank">${bounds}</a>`
+    );
+  });
 }
+
+map.on("movestart", () => {
+  pinLayer.getSource().clear();
+});
 
 map.on("moveend", init);
 
