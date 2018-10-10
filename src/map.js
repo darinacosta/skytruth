@@ -13,9 +13,23 @@ var map = new ol.Map({
   })
 });
 
-const pinLayer = new ol.layer.Vector({
-  source: new ol.source.Vector()
+const style = new ol.style.Style({
+  image: new ol.style.Circle({
+    radius: 5,
+    fill: new ol.style.Fill({ color: "rgb(36, 132, 101)" }),
+    stroke: new ol.style.Stroke({
+      color: "white",
+      width: 1
+    })
+  })
 });
+
+const pinLayer = new ol.layer.Vector({
+  source: new ol.source.Vector(),
+  style,
+  opacity: 0.7
+});
+
 map.addLayer(pinLayer);
 
 const getMapCoords = () =>
@@ -51,7 +65,6 @@ addPoints = function(entries) {
       title: e.title,
       summary: e.summary
     });
-
     features.push(feature);
   }
   pinLayer.getSource().addFeatures(features);
@@ -82,7 +95,6 @@ map.on("pointermove", function(evt) {
 function init() {
   getMapCoords().then(bounds => {
     getSkyTruthData(bounds);
-    console.log("!!!ENTRIES", entries);
     $("#coords").html(
       `<a href="http://alerts.skytruth.org/rss?l=${bounds}#rss" target="_blank">${bounds}</a>`
     );

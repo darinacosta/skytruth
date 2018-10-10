@@ -1,4 +1,6 @@
 <head>
+  <title>Skytruth Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="lib/json2csv.js"></script>
   <script src="lib/jquery.js"></script>
   <script src="lib/ol/ol.js"></script>
@@ -40,7 +42,9 @@
   #info {
     margin-top: 10px;
     font-weight:bold;
-    color: #af7373;
+  }
+  .ol-control button {
+    background-color: rgb(36, 132, 101)
   }
   </style>
 </head>
@@ -51,16 +55,16 @@
     <hr>
     <p>
       Data is collected from
-      <a href="http://alerts.skytruth.org/" target="_blank">Sky Truth</a>. Set the bounding box by panning and zooming the map below and click the `DOWNLOAD` button to retrieve CSV data:
+      <a href="http://alerts.skytruth.org/" target="_blank">Sky Truth</a>. Set the bounding box by panning and zooming the map below and click the `DOWNLOAD CSV` button to retrieve CSV data:
       <br><br>
-      <span><b>BOUNDS: </b><pre id="coords"><i>loading...</i></pre></span>
-      <span><b>FEATURE COUNT: </b><span id="count"><i>loading...</i></span></span>
-      <div id="info">...</div>
+      <pre><b>BOUNDS: </b><span id="coords"><i>loading...</i></span></pre>
+      <pre><b>FEATURE COUNT: </b><span id="count"><i>loading...</i></span></pre>
+      <pre><b>FEATURE TITLE: </b><span id="info">...</span></pre>
     </p>
     <div id="map" class="map"><div id="info"></div></div>
 
     <a id='a' download='Download.csv' type='text/csv'>
-      <button id="download">DOWNLOAD</button>
+      <button id="download">DOWNLOAD CSV</button>
     </a>
     <br><br>
   </div>
