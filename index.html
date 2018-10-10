@@ -11,7 +11,7 @@
     margin-bottom: 5px;
   }
   body {
-    background-color: black;
+    background-color: #090909;
     color: white;
     font-family: "Courier New", Courier, monospace;
   }
@@ -36,6 +36,9 @@
     max-width: 700px;
     padding: 30px;
   }
+  #maxFeatures {
+    width: 70;
+  }
   #map {
     height: 400px;
   }
@@ -49,19 +52,19 @@
 </head>
 <body>
   <div id="main">
-    <h1>Sky Truth XML > CSV</h1>
+    <h1>Skytruth XML to CSV Converter</h1>
     <div id="browserWarning"><b>Target browsers:</b> <i>latest version of Firefox or Chrome</i></div>
     <hr>
     <p>
       Data is collected from
-      <a href="http://alerts.skytruth.org/" target="_blank">Sky Truth</a>. Set the bounding box by panning and zooming the map below and click the `DOWNLOAD CSV` button to retrieve CSV data:
+      <a href="http://alerts.skytruth.org/" target="_blank">Skytruth</a>. Set the bounding box by panning and zooming the map below and click the `DOWNLOAD CSV` button to retrieve CSV data:
       <br><br>
-      <pre><b>BOUNDS: </b><span id="coords"><i>loading...</i></span></pre>
+      <pre><b>MAXIMUM FEATURES: </b><input type="number" id="maxFeatures" min="1" value="100"></pre>
       <pre><b>FEATURE COUNT: </b><span id="count"><i>loading...</i></span></pre>
+      <pre><b>BOUNDS: </b><span id="coords"><i>loading...</i></span></pre>
       <pre><b>FEATURE TITLE: </b><span id="info">...</span></pre>
     </p>
     <div id="map" class="map"><div id="info"></div></div>
-
     <a id='a' download='Download.csv' type='text/csv'>
       <button id="download">DOWNLOAD CSV</button>
     </a>
@@ -70,11 +73,12 @@
   <script>
   let info = document.getElementById("info");
 let target = document.getElementById("map");
-let addPoints = null;
-let entries = [];
 let csv = null;
+let init = null;
 const fields = ["lat", "lon", "published", "summary", "title"];
 </script>
-  <script src="src/map.js"></script>
-  <script src="src/converter.js"></script>
+<script src="src/numberForm.js"></script>
+  <script src="src/mapManager.js"></script>
+  <script src="src/app.js"></script>
+  <script src="src/dataManager.js"></script>
 </body>
