@@ -42,6 +42,10 @@ function jsonToCsv(arr) {
 }
 
 function parseObjEntry(obj) {
+  if (!obj) {
+    $("#count").text(0);
+    return;
+  }
   for (let o of obj.entry) {
     entries.push({
       // content: o.content[`#text`],
@@ -52,6 +56,8 @@ function parseObjEntry(obj) {
       published: o.published[`#text`]
     });
   }
+  $("#count").text(entries.length);
+
   csv = jsonToCsv(entries);
   var data = new Blob([csv]);
   var a = document.getElementById("a");
@@ -59,7 +65,7 @@ function parseObjEntry(obj) {
 }
 
 function getSkyTruthData(location) {
-  console.log("!!!!", `http://alerts.skytruth.org/rss?l=${boundingBox}#rss`);
+  entries = [];
   return fetch(`http://alerts.skytruth.org/rss?l=${boundingBox}#rss`)
     .then(response => response.text())
     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
@@ -67,5 +73,3 @@ function getSkyTruthData(location) {
       const json = xmlToJson(data);
     });
 }
-
-getSkyTruthData();
